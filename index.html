@@ -65,6 +65,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-k8s" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/15/k8s/" class="article-date">
+  <time datetime="2018-08-15T14:44:12.000Z" itemprop="datePublished">2018-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/15/k8s/">k8s</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.命令行所在机器： 10.87.219.17</p>
+<ol>
+<li>Submit job</li>
+</ol>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># arena submit --name=mytest \</span><br><span class="line">             -<span class="ruby">-gpus=<span class="number">1</span> \</span><br><span class="line"></span>             -<span class="ruby">-cpu=<span class="number">10</span> \</span><br><span class="line"></span>             -<span class="ruby">-memory=<span class="number">10</span>Gi \</span><br><span class="line"></span>             -<span class="ruby">-image=registry.api.weibo.com/weibo_rd_algorithmplatform/<span class="symbol">deepwide:</span>tf1.<span class="number">4.3</span> \</span><br><span class="line"></span>             -<span class="ruby">-env=a=b \</span><br><span class="line"></span>             -<span class="ruby">-env=c=d \</span><br><span class="line"></span>             -<span class="ruby">-syncMode=rsync \</span><br><span class="line"></span>             -<span class="ruby">-syncSource=<span class="number">10.77</span>.<span class="number">29.68</span><span class="symbol">:</span><span class="symbol">:backup/data/logoRecoTrain</span>.zip \</span><br><span class="line"></span>             -<span class="ruby">-workingDir=<span class="regexp">/root \</span><br><span class="line"></span></span>             "unzip logoRecoTrain.zip;cd LOGOTest;python finetune_all_layers.py"</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Review job</li>
+</ol>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># arena get mytest</span><br><span class="line"><span class="keyword">NAME</span>               <span class="keyword">STATUS</span>   AGE</span><br><span class="line">mytest-training  RUNNING  6s</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Check logs of the job</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># arena logs  mytest</span><br><span class="line">Archive:  logoRecoTrain.zip</span><br><span class="line">   creatin<span class="variable">g:</span> LOGOTest/</span><br><span class="line">  inflatin<span class="variable">g:</span> LOGOTest/finetune_all_layers.<span class="keyword">py</span></span><br><span class="line">  inflatin<span class="variable">g:</span> LOGOTest/inception_preprocessing.<span class="keyword">py</span></span><br><span class="line">  inflatin<span class="variable">g:</span> LOGOTest/inception_preprocessing.pyc</span><br><span class="line">  inflatin<span class="variable">g:</span> LOGOTest/inception_resnet_v2.<span class="keyword">py</span></span><br><span class="line">  inflatin<span class="variable">g:</span> LOGOTest/inception_resnet_v2.pyc</span><br><span class="line">  inflatin<span class="variable">g:</span> LOGOTest/inception_resnet_v2_2016_08_30.ckpt</span><br><span class="line">  inflatin<span class="variable">g:</span> LOGOTest/train.tfrecords</span><br><span class="line">WARNING:tensorflo<span class="variable">w:From</span> finetune_all_layers.<span class="keyword">py</span>:<span class="number">114</span>: get_or_create_global_step (from tensorflow.contrib.framework.<span class="keyword">python</span>.ops.variables) <span class="keyword">is</span> deprecated <span class="built_in">and</span> will <span class="keyword">be</span> removed in <span class="keyword">a</span> future <span class="keyword">version</span>.</span><br><span class="line">Instructions <span class="keyword">for</span> updatin<span class="variable">g:</span></span><br><span class="line">Please switch <span class="keyword">to</span> <span class="keyword">tf</span>.train.get_or_create_global_step</span><br><span class="line">WARNING:tensorflo<span class="variable">w:From</span> /usr/local/lib/python2.<span class="number">7</span>/dist-packages/tensorflow/<span class="keyword">python</span>/util/tf_should_use.<span class="keyword">py</span>:<span class="number">107</span>: initialize_all_variables (from tensorflow.<span class="keyword">python</span>.ops.variables) <span class="keyword">is</span> deprecated <span class="built_in">and</span> will <span class="keyword">be</span> removed after <span class="number">2017</span>-<span class="number">03</span>-<span class="number">02</span>.</span><br><span class="line">Instructions <span class="keyword">for</span> updatin<span class="variable">g:</span></span><br><span class="line">Use `<span class="keyword">tf</span>.global_variables_initializer` instead.</span><br><span class="line"><span class="number">2018</span>-<span class="number">05</span>-<span class="number">03</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">18.595708</span>: I tensorflow/core/platform/cpu_feature_guard.<span class="keyword">cc</span>:<span class="number">137</span>] Your CPU supports instructions that this TensorFlow binary was not compiled <span class="keyword">to</span> use: SSE4.<span class="number">1</span> SSE4.<span class="number">2</span> AVX AVX2 FMA</span><br><span class="line"><span class="number">2018</span>-<span class="number">05</span>-<span class="number">03</span> <span class="number">13</span>:<span class="number">47</span>:<span class="number">18.743800</span>: I tensorflow/stream_executor/cuda/cuda_gpu_executor.<span class="keyword">cc</span>:<span class="number">892</span>] successful NUMA node <span class="keyword">read</span> from SysFS had negative value (-<span class="number">1</span>), but there must <span class="keyword">be</span> at least one NUMA node, <span class="keyword">so</span> returning NUMA node zero</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Delete the job</li>
+</ol>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arena <span class="keyword">delete</span> mytest</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://theflyfish.github.io/2018/08/15/k8s/" data-id="cjkv903d60000w83p09g6mf7w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-distributelock-md" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/06/14/distributelock-md/" class="article-date">
@@ -91,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2016/06/14/distributelock-md/" data-id="cjkv8sxpk0000u93pl8tgppla" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2016/06/14/distributelock-md/" data-id="cjkv903dd0001w83p2d0wz61t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -203,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2016/02/28/notes-1/" data-id="cjkv8sxpr0002u93pwmjld1n4" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2016/02/28/notes-1/" data-id="cjkv903dg0002w83pfl1gvncc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2016/01/15/snapshot/" data-id="cjkv8sxpp0001u93pon2b88tc" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2016/01/15/snapshot/" data-id="cjkv903do0003w83p4ngiwk9f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -336,7 +389,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -346,6 +399,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/08/15/k8s/">k8s</a>
+          </li>
         
           <li>
             <a href="/2016/06/14/distributelock-md/">distributelock.md</a>
