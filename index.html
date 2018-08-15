@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Don&#39;t Panic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Don't Panic">
+<meta property="og:url" content="http://theflyfish.github.io/index.html">
+<meta property="og:site_name" content="Don't Panic">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Don't Panic">
+<meta name="twitter:description">
+  
+    <link rel="alternative" href="/atom.xml" title="Don&#39;t Panic" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Don&#39;t Panic</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">stay hungry, stay foolish</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://theflyfish.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-distributelock-md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/14/distributelock-md/" class="article-date">
+  <time datetime="2016-06-13T17:01:04.000Z" itemprop="datePublished">2016-06-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/14/distributelock-md/">distributelock.md</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://theflyfish.github.io/2016/06/14/distributelock-md/" data-id="cjkv7bv0n0001ko3p7bouojyv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-notes-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/28/notes-1/" class="article-date">
+  <time datetime="2016-02-28T14:50:35.000Z" itemprop="datePublished">2016-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/28/notes-1/">大规模分布式系统_原理分析与架构实践</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-分布式存储定义"><a href="#1-分布式存储定义" class="headerlink" title="1. 分布式存储定义"></a>1. 分布式存储定义</h2><ul>
+<li>大量普通PC服务器通过internet互联，对外作为一个整体提供存储服务</li>
+</ul>
+<h2 id="2-特性"><a href="#2-特性" class="headerlink" title="2. 特性"></a>2. 特性</h2><ul>
+<li>扩展性，低成本，高性能，易用性</li>
+</ul>
+<h2 id="3-挑战难点"><a href="#3-挑战难点" class="headerlink" title="3. 挑战难点"></a>3. 挑战难点</h2><ul>
+<li>数据与状态信息的持久化</li>
+<li>在自动迁移与自读容错，并发读写的过程中保证数据的一致性</li>
+</ul>
+<h2 id="4-数据类型分类"><a href="#4-数据类型分类" class="headerlink" title="4. 数据类型分类"></a>4. 数据类型分类</h2><ul>
+<li>非结构化数据</li>
+<li>结构化数据</li>
+<li>半结构化数据</li>
+</ul>
+<h2 id="5-分布式存储分类："><a href="#5-分布式存储分类：" class="headerlink" title="5.分布式存储分类："></a>5.分布式存储分类：</h2><ul>
+<li>分布式文件系统</li>
+<li>作为分布式表格系统与分布式数据库的的底层存储 <ul>
+<li>Facebook Haystack</li>
+<li>TFS\GFS\Amazon EBS</li>
+</ul>
+</li>
+<li>分布式键值系统<ul>
+<li>memcache\Tair\Amazon Dynamo</li>
+</ul>
+</li>
+<li>分布式表格系统 <ul>
+<li>Google Bigtable</li>
+<li>megastore</li>
+<li>Microsoft azure table storage</li>
+<li>Amazon DynamoDB</li>
+</ul>
+</li>
+<li>分布式数据库<ul>
+<li>MySQL sharding</li>
+<li>Amazon RDS</li>
+<li>Microsoft SQL azure</li>
+<li>Google spanner</li>
+<li>OceanBase</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-OTHER"><a href="#6-OTHER" class="headerlink" title="6. OTHER"></a>6. OTHER</h2><ul>
+<li>性能瓶颈:  <ul>
+<li>存储系统的性能瓶颈主要在于磁盘的随机读写</li>
+</ul>
+</li>
+<li><p>优化方式：</p>
+<ul>
+<li><p>将随机写操作转化为顺序写</p>
+<pre><code>&gt;Log-structured Merge Tree 这套体系的核心思路就是，你的所有更新和删除操作，都会被转换为一个log并被追加到文件尾部，这样就可以将所有的原位更新都转换为顺序写入，代价则是更多的读取次数，不过因为NAND的读取不是瓶颈，所以代价是可以接受的.同时，后端有一组线程，从文件头开始顺序的读取所有的块，将块中未被标记为删除的数据找出来，凑够64个页后写到新的块中，然后调用块删除命令，清除那些已经完成誊写的数据块。
+</code></pre></li>
+<li><p>通过缓存减少磁盘随机读操作</p>
+<pre><code>&gt;缓存
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>SSD随机读取友好，随机写入时存在写入放大问题</li>
+</ul>
+<h2 id="分布式系统衡量指标"><a href="#分布式系统衡量指标" class="headerlink" title="分布式系统衡量指标"></a>分布式系统衡量指标</h2><ul>
+<li><strong>性能</strong><ul>
+<li>吞吐能力与系统响应时间</li>
+</ul>
+</li>
+<li>可用性<ul>
+<li>指系统在面对各种异常时可以提供正常服务的能力，可用性可以用系统停服务的时间与正常服务的时间的比例来衡量</li>
+</ul>
+</li>
+<li>一致性 <ul>
+<li>越是强的一致性模型，用户使用起来越简单</li>
+</ul>
+</li>
+<li>可扩展性</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://theflyfish.github.io/2016/02/28/notes-1/" data-id="cjkv7bv0r0002ko3pc7qehuvj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-snapshot" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/15/snapshot/" class="article-date">
+  <time datetime="2016-01-15T12:10:33.000Z" itemprop="datePublished">2016-01-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/15/snapshot/">使用带权计数算法对快照机制优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h2><p>当前快照机制使用世代引用计数算法(generational referencecounting)，来判定对象是否需要删除。<br>但该算法无法实现legder对象空间复用，就导致了如果快照个数达到最大值，即使删除已创建快照，也无法创建新快照。<br>当前每次删除快照时，每删除一个对象都需要操作一个ledger记账对象，导致快照删除的性能很差<br>现在考虑使用带权计数算法进行优化，旨在解决ledger对象复用的问题，并尝试根据新的算法解决快照性能的不足。</p>
+<h2 id="2-基于带权算法的快照机制"><a href="#2-基于带权算法的快照机制" class="headerlink" title="2. 基于带权算法的快照机制"></a>2. 基于带权算法的快照机制</h2><ol>
+<li>每个数据对象创建后都有一个固定的总权重TW(total weight)，原始权重OW(original weight).最初时TW=OW=2^63，TW与OW值由ledger对象来管理</li>
+<li>每个引用该对象的VDI都会维护一个对应的权重PW（partial weight），由于每个VDI由很多对象构成，会在inode中记录一个PW数组，以下以单个对象为例进行说明。</li>
+<li>第一个VDI创建时，OW会传递1/2的权重到该VDI，即此时OW=2^62,PW1=2^62</li>
+<li>每创建一个VDI，该VDI都会得到父VDI 1/2的权重，同时父VDI的权重变为原来的1/2<br><img src="/images/Image-1.png" alt="snapshot"></li>
+<li><p>依此类推，在基于原始对象创建一个新的VDI（snapshot或者clone）时，当前VDI会将自身持有权重PW的1/2传递到下一个VDI中</p>
+</li>
+<li><p>VDI删除时，操作ledger对象 将这个VDI的权重加回到OW中</p>
+</li>
+<li>当TW==OW时，代表该对象已经没有VDI引用，触发删除操作</li>
+<li>以上便是整个算法的骨架，该算法维护这样一个核心恒等式： TW =OW+(PW1+PW2+….+PWn), PWn表示第N个引用该对象的VDI的权重</li>
+</ol>
+<h2 id="3-边界处理与OW权重池"><a href="#3-边界处理与OW权重池" class="headerlink" title="3. 边界处理与OW权重池"></a>3. 边界处理与OW权重池</h2><h3 id="边界问题"><a href="#边界问题" class="headerlink" title="边界问题"></a>边界问题</h3><ul>
+<li>如果一个VDI-x的权重已经为1,若还要基于其创建新VDI-y，需要判断ledger对象，进行如下流程：<ul>
+<li>如果OW不为1，说明还有多余的权重可以分配，PW(x)=OW/2+PW(x), 从OW中分取一半的权重，继续进行后续的VDI创建流程.  </li>
+<li>如果OW为1, 说明该对象权重已经全部用完，无法继续分配。</li>
+</ul>
+</li>
+</ul>
+<h3 id="应对方案"><a href="#应对方案" class="headerlink" title="应对方案"></a>应对方案</h3><ul>
+<li>针对此问题有两个方案可以解决:<ul>
+<li>通过增加总权重TW的方式增加可用权重</li>
+<li>创建新的权重对象OW2。</li>
+</ul>
+</li>
+<li>此处参考相关资料使用间接块的想法，初步设计采用权重池的方式</li>
+</ul>
+<p>###权重池机制</p>
+<ol>
+<li>首先在ledger中维护32（个数待定）个OW权重数组OW[32]，每个OW初值均为TW</li>
+<li>每个引用该对象的VDI，维护两个变量，generation与PW值，generation代表该权重所属的OW在OW数组中的位置。</li>
+<li>开始创建第一个vdi时使用OW[0]作为原始权重，generation=0，按照第二节的规律后续的vdi依次创建</li>
+<li>回到上面的问题，当某个VDI-x权重为1且需要基于该VDI进行创建新VDI-y，如果OW[0]为1，已经无法分配权重，此时我们进行如下操作：<ul>
+<li>VDI-x将之前分配得到的权重还回OW[0]</li>
+<li>选择OW[1]重进行分配,此时PW(x)= OW[1]/2；当VDI-x得到足够的权重，便可继续进行VDI创建</li>
+<li>更新VDI-x的generation=1；</li>
+</ul>
+</li>
+<li>当VDI删除时，根据自身的generation将PW还回到对应的OW中</li>
+<li>当整个ledger数组的OW都等于TW时，该对象已经么有引用，触发删操作</li>
+</ol>
+<h2 id="4-结论讨论"><a href="#4-结论讨论" class="headerlink" title="4. 结论讨论"></a>4. 结论讨论</h2><ol>
+<li>snapshot的原来的机制采用世代引用计数算法(GRC)，带权引用计数算法（WRC）与之对比如下：<br><img src="/images/Image-2.png" alt="snapshot"></li>
+<li><p>针对该方案，进行初步理论值统计  </p>
+<ul>
+<li><p>MIN：在最差的情况下能够使用的快照个数。最差情况是指对同一个VDI只进行连续的快照操作，此时权重的消耗速度最快，判断为目前最差的情况,此种情况下总的快照次数计算公式为</p>
+<blockquote>
+<p>sum =n（n+1）/2,  n为总权重的幂数  </p>
+</blockquote>
+</li>
+<li><p>MAX:  整个VDI即有clone也有snapshot，这个VDI以二叉树的方式全部铺开（参考意义不大）<br><img src="/images/Image-3.jpg" alt="snapshot"></p>
+</li>
+</ul>
+</li>
+<li><p>当权重为1的VDI需要打快照时，就会导致快照创建时也会操作记账对象</p>
+<blockquote>
+<p>以2^31为TW总权重为例，在最差MIN情况下，每465快照中有30次快照，创建时会操作记账对象</p>
+</blockquote>
+</li>
+<li><p>该优化方案，对代码的改动面较大，改动过程中需要考虑的比较全面，有出现新问题的风险，在做优化之前先把细节想清楚</p>
+</li>
+</ol>
+<h2 id="5-基于WRC的快照性能优化（后续）"><a href="#5-基于WRC的快照性能优化（后续）" class="headerlink" title="5. 基于WRC的快照性能优化（后续）"></a>5. 基于WRC的快照性能优化（后续）</h2><ol>
+<li>对于4T的VDI进行快照，若此时权重为1需要跟记账对象通信，按照每个对象4M计算，最差情况下大约有1M次的socket通信，可能会导致本次快照时间过长，快照的创建性能有会有波动。而且现在的机制中每个对象都对应一个ledger，在删除过程中最差情况会有1M次的socket通信，快照的删除性能比较差。</li>
+<li>上述提到的问题，有两个优化方案<ul>
+<li>由上一章节的理论数据可知，当ledger大小为1个字节时，数据对象支持快照个数可达4960个，如果这个个数已经达到要求的话，根据这一点我们可以用一个ledger对象管理一个VDI的所有对象，ledger中的每个字节与VDI中数据对象一一对应。对于4T的数据盘而言，ledger对象为4M大大减少了创建跟删除时的网络通信以及ledger对象的创建所耗费的时间。会对性能有很大的提升</li>
+<li>第二个方案是一个ledger对象管理连续index的多个数据对象，通过hash的方式进行对象定位，通过这种方式，删除时理想情况下每删除256个对象，操作一次ledger对象</li>
+</ul>
+</li>
+</ol>
+<h2 id="6-参考文献"><a href="#6-参考文献" class="headerlink" title="6. 参考文献"></a>6. 参考文献</h2><p>Garbage Collection Algorithms For Automatic Dynamic Memory Management -Richard Jones<br>《垃圾收集》英文译- Richard Jones<br><a href="https://en.wikipedia.org/wiki/Reference_counting" target="_blank" rel="external">https://en.wikipedia.org/wiki/Reference_counting</a><br><a href="http://www.cse.scu.edu/~jholliday/COEN317S06/DC3Naming.ppt" target="_blank" rel="external">http://www.cse.scu.edu/~jholliday/COEN317S06/DC3Naming.ppt</a><br><a href="http://www.cs.nyu.edu/goldberg/pubs/gold89.pdf" target="_blank" rel="external">http://www.cs.nyu.edu/goldberg/pubs/gold89.pdf</a><br><a href="http://students.depaul.edu/~cbaier1/435/ds-log.html" target="_blank" rel="external">http://students.depaul.edu/~cbaier1/435/ds-log.html</a><br><a href="https://www.researchgate.net/publication/220758907_Cyclic_Weighted_Reference_Counting_without_Delay" target="_blank" rel="external">https://www.researchgate.net/publication/220758907_Cyclic_Weighted_Reference_Counting_without_Delay</a>   </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://theflyfish.github.io/2016/01/15/snapshot/" data-id="cjkv7bv0h0000ko3pa7kcnkt3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/14/distributelock-md/">distributelock.md</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/28/notes-1/">大规模分布式系统_原理分析与架构实践</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/15/snapshot/">使用带权计数算法对快照机制优化</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Shine Yu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
