@@ -3,17 +3,39 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016/1 | Don&#39;t Panic</title>
+  <title>storm-安装 | Don&#39;t Panic</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Don't Panic">
-<meta property="og:url" content="http://theflyfish.github.io/archives/2016/01/index.html">
+  <meta name="description" content="##分布式计算之storm
+###1. 安装部署
+
+环境：10.77.100.68####1.1maven安装
+下载地址：https://maven.apache.org/download.cgi
+安装说明：https://maven.apache.org/install.html
+操作命令：
+wget http://mirrors.hust.edu.cn/apache/maven/maven-3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="storm-安装">
+<meta property="og:url" content="http://theflyfish.github.io/2018/08/15/storm-安装/index.html">
 <meta property="og:site_name" content="Don't Panic">
-<meta property="og:description">
+<meta property="og:description" content="##分布式计算之storm
+###1. 安装部署
+
+环境：10.77.100.68####1.1maven安装
+下载地址：https://maven.apache.org/download.cgi
+安装说明：https://maven.apache.org/install.html
+操作命令：
+wget http://mirrors.hust.edu.cn/apache/maven/maven-3">
+<meta property="og:updated_time" content="2018-08-15T15:32:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Don't Panic">
-<meta name="twitter:description">
+<meta name="twitter:title" content="storm-安装">
+<meta name="twitter:description" content="##分布式计算之storm
+###1. 安装部署
+
+环境：10.77.100.68####1.1maven安装
+下载地址：https://maven.apache.org/download.cgi
+安装说明：https://maven.apache.org/install.html
+操作命令：
+wget http://mirrors.hust.edu.cn/apache/maven/maven-3">
   
     <link rel="alternative" href="/atom.xml" title="Don&#39;t Panic" type="application/atom+xml">
   
@@ -63,39 +85,79 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/01/15/snapshot/" class="archive-article-date">
-  <time datetime="2016-01-15T12:10:33.000Z" itemprop="datePublished">1月 15</time>
+        <section id="main"><article id="post-storm-安装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/15/storm-安装/" class="article-date">
+  <time datetime="2018-08-15T15:32:50.000Z" itemprop="datePublished">2018-08-15</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/15/snapshot/">使用带权计数算法对快照机制优化</a>
+    <h1 class="article-title" itemprop="name">
+      storm-安装
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##分布式计算之storm</p>
+<p>###1. 安装部署</p>
+<ul>
+<li>环境：10.77.100.68<br>####1.1maven安装</li>
+<li>下载地址：<a href="https://maven.apache.org/download.cgi" target="_blank" rel="external">https://maven.apache.org/download.cgi</a></li>
+<li>安装说明：<a href="https://maven.apache.org/install.html" target="_blank" rel="external">https://maven.apache.org/install.html</a></li>
+<li>操作命令：<ul>
+<li>wget <a href="http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz" target="_blank" rel="external">http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz</a></li>
+<li>tar -xzvf apache-maven-3.5.4-bin.tar.gz</li>
+<li>mv apache-maven-3.5.4 /opt/</li>
+<li>export PATH=/opt/apache-maven-3.5.4/bin:$PATH</li>
+</ul>
+</li>
+</ul>
+<p>####1.2 storm-docker镜像</p>
+<ul>
+<li>镜像: <a href="https://hub.docker.com/\_/storm/" target="_blank" rel="external">https://hub.docker.com/\_/storm/</a></li>
+<li>docker pull storm:latest</li>
+<li>docker run -it -v storm-starter-topologies-1.0.2.jar:/topology.jar storm:1.0.2 storm jar /topology.jar org.apache.storm.starter.ExclamationTopology<br>*</li>
+</ul>
+<p>####1.3 storm - 下载</p>
+<ul>
+<li>示例参考：examples/storm-starter/README.markdown </li>
+<li>sourcecode:  git://github.com/apache/storm.git</li>
+<li>package: wget <a href="http://mirror.bit.edu.cn/apache/storm/apache-storm-1.2.2/apache-storm-1.2.2.tar.gz" target="_blank" rel="external">http://mirror.bit.edu.cn/apache/storm/apache-storm-1.2.2/apache-storm-1.2.2.tar.gz</a> </li>
+<li></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://theflyfish.github.io/2018/08/15/storm-安装/" data-id="cjkvaov650004fj3pywyi9hyk" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/15/k8s/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">k8s</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
 </section>
         
           <aside id="sidebar">

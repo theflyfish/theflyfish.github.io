@@ -65,6 +65,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-storm-安装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/15/storm-安装/" class="article-date">
+  <time datetime="2018-08-15T15:32:50.000Z" itemprop="datePublished">2018-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/15/storm-安装/">storm-安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##分布式计算之storm</p>
+<p>###1. 安装部署</p>
+<ul>
+<li>环境：10.77.100.68<br>####1.1maven安装</li>
+<li>下载地址：<a href="https://maven.apache.org/download.cgi" target="_blank" rel="external">https://maven.apache.org/download.cgi</a></li>
+<li>安装说明：<a href="https://maven.apache.org/install.html" target="_blank" rel="external">https://maven.apache.org/install.html</a></li>
+<li>操作命令：<ul>
+<li>wget <a href="http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz" target="_blank" rel="external">http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz</a></li>
+<li>tar -xzvf apache-maven-3.5.4-bin.tar.gz</li>
+<li>mv apache-maven-3.5.4 /opt/</li>
+<li>export PATH=/opt/apache-maven-3.5.4/bin:$PATH</li>
+</ul>
+</li>
+</ul>
+<p>####1.2 storm-docker镜像</p>
+<ul>
+<li>镜像: <a href="https://hub.docker.com/\_/storm/" target="_blank" rel="external">https://hub.docker.com/\_/storm/</a></li>
+<li>docker pull storm:latest</li>
+<li>docker run -it -v storm-starter-topologies-1.0.2.jar:/topology.jar storm:1.0.2 storm jar /topology.jar org.apache.storm.starter.ExclamationTopology<br>*</li>
+</ul>
+<p>####1.3 storm - 下载</p>
+<ul>
+<li>示例参考：examples/storm-starter/README.markdown </li>
+<li>sourcecode:  git://github.com/apache/storm.git</li>
+<li>package: wget <a href="http://mirror.bit.edu.cn/apache/storm/apache-storm-1.2.2/apache-storm-1.2.2.tar.gz" target="_blank" rel="external">http://mirror.bit.edu.cn/apache/storm/apache-storm-1.2.2/apache-storm-1.2.2.tar.gz</a> </li>
+<li></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://theflyfish.github.io/2018/08/15/storm-安装/" data-id="cjkvaov650004fj3pywyi9hyk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-k8s" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/15/k8s/" class="article-date">
@@ -108,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2018/08/15/k8s/" data-id="cjkv903d60000w83p09g6mf7w" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2018/08/15/k8s/" data-id="cjkvaov5y0001fj3plkmy4e7h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2016/06/14/distributelock-md/" data-id="cjkv903dd0001w83p2d0wz61t" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2016/06/14/distributelock-md/" data-id="cjkvaov5q0000fj3pwn10253x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -256,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2016/02/28/notes-1/" data-id="cjkv903dg0002w83pfl1gvncc" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2016/02/28/notes-1/" data-id="cjkvaov610002fj3ppq2kagik" class="article-share-link">Share</a>
       
       
     </footer>
@@ -364,7 +427,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2016/01/15/snapshot/" data-id="cjkv903do0003w83p4ngiwk9f" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2016/01/15/snapshot/" data-id="cjkvaov630003fj3pf1gc0wln" class="article-share-link">Share</a>
       
       
     </footer>
@@ -389,7 +452,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -399,6 +462,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/08/15/storm-安装/">storm-安装</a>
+          </li>
         
           <li>
             <a href="/2018/08/15/k8s/">k8s</a>
