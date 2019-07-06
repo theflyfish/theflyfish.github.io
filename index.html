@@ -65,25 +65,62 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Tensorflow-Class" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-ctcdflow-readme" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/09/24/Tensorflow-Class/" class="article-date">
-  <time datetime="2018-09-24T15:22:31.000Z" itemprop="datePublished">2018-09-24</time>
+    <a href="/2019/02/18/ctcdflow-readme/" class="article-date">
+  <time datetime="2019-02-17T16:04:00.585Z" itemprop="datePublished">2019-02-18</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="ctcdflow代码框架"><a href="#ctcdflow代码框架" class="headerlink" title="ctcdflow代码框架"></a>ctcdflow代码框架</h4><h3 id="流程框架"><a href="#流程框架" class="headerlink" title="流程框架"></a>流程框架</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">st1=&gt;start: ctcdflow framework</span><br><span class="line">e=&gt;end: category implement</span><br><span class="line">op1=&gt;operation: opreation dict</span><br><span class="line">op2=&gt;operation: category factory</span><br><span class="line">st1-&gt;op1</span><br><span class="line">op1-&gt;op2</span><br></pre></td></tr></table></figure>
+<h3 id="framework概述"><a href="#framework概述" class="headerlink" title="framework概述"></a>framework概述</h3><p>framework基于python的argparse的子命令方式，将各个step的任务处理进行了解耦</p>
+<p>以下是framework下的目录架构除tools目录外其他每个目录代表ctcd流程中的某一步step，与该操作相关的所有代码文件都聚合到该目录下，每一个step作为一个插件接入到framework里。</p>
+<blockquote>
+<p>├── engine_deploy<br>├── model_deploy<br>├── model_evaluate<br>├── model_predict<br>├── model_prepare<br>├── model_recycle<br>├── model_train<br>├── serving_check<br>└── tools<br>如果需要新增子命令时，只需要遵循相关的插件定义方式即可</p>
+</blockquote>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">OP_DICT = &#123;</span><br><span class="line">    <span class="string">'model_train'</span>: ModelTrainOp(),</span><br><span class="line">    'model_prepare': ModelPrepareOp(),</span><br><span class="line">    'model_predict': ModelPredictOp(),</span><br><span class="line">    'model_evaluate': ModelEvaluateOp(),</span><br><span class="line">    'model_deploy': ModelDeployOp(),</span><br><span class="line">    'model_recycle': ModelRecycleOp(),</span><br><span class="line">    'serving_check': ServingCheckOp(),</span><br><span class="line">    'engine_deploy':EngineDeployOp()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后具体到每个Step内部，代码结构如下：</p>
+<blockquote>
+<p>├── factory.py<br>├── op.py<br>├── base<br>├── fm<br>├── lr</p>
+</blockquote>
+<p>op.py:<br>其中op.py中定义了step接入framework的方式，其中包括</p>
+<ul>
+<li>定义framwork中与该step相关的输入参数</li>
+<li>定义framwork调用该step时的入口操作函数<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ModelPrepareOp</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_argument</span><span class="params">(subparser)</span>:</span></span><br><span class="line">        subparser.add_argument(<span class="string">'--model_name'</span>,help = <span class="string">"model name"</span>)</span><br><span class="line">        subparser.add_argument(<span class="string">'--model_version'</span>,help= <span class="string">"model version"</span>)</span><br><span class="line">        subparser.set_defaults(func = ModelPrepareOp.run)</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(args)</span>:</span></span><br><span class="line">        module_logger.info(<span class="string">"args:%s"</span> % args)</span><br><span class="line">        instance = ModelPrepareFactory.create(args.model_source)</span><br><span class="line">        instance.init(args)</span><br><span class="line">        instance.process()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>factory.py:<br>因为每个step执行时，根据某些类型不一致，具体的执行流程也不一致，以上述例子为例，不同的算法对应不同的执行流程。所以在这里定义了定义了工厂类，根据入参来反射查找对应的执行类<br>base:<br>base目录下存储了通用的操作定义，所有具体执行类的基础类接口interface也在此定义；具体执行类必须继承自interface接口进行重载实现。在上述例子中fm与lr目录下即存放了具体执行子类的代码逻辑</p>
+<h3 id="step-操作说明"><a href="#step-操作说明" class="headerlink" title="step 操作说明"></a>step 操作说明</h3><h4 id="model-prepare"><a href="#model-prepare" class="headerlink" title="model_prepare"></a>model_prepare</h4><p>模型准备，在weips模式下，内部流程包括模型保存、模型转化、模型库注册等</p>
+<h4 id="model-evaluate"><a href="#model-evaluate" class="headerlink" title="model_evaluate"></a>model_evaluate</h4><p>模型评估</p>
+<h4 id="model-deploy"><a href="#model-deploy" class="headerlink" title="model_deploy"></a>model_deploy</h4><p>模型部署</p>
+<h4 id="engine-deploy"><a href="#engine-deploy" class="headerlink" title="engine_deploy"></a>engine_deploy</h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://theflyfish.github.io/2019/02/18/ctcdflow-readme/" data-id="cjxr0e06v00009cnq522rf734" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/24/Tensorflow-Class/">Tensorflow-Class</a>
-    </h1>
-  
+</article>
 
-      </header>
+
+  
+    <article id="post-weiPSClient" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/24/weiPSClient/" class="article-date">
+  <time datetime="2018-12-24T11:15:00.000Z" itemprop="datePublished">2018-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -91,7 +128,90 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2018/09/24/Tensorflow-Class/" data-id="cjmgge8bk0000ysnqsin9guzu" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2018/12/24/weiPSClient/" data-id="cjxr0e07100019cnqpprksc1i" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-K8S-集群资源dashboard登录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/05/K8S-集群资源dashboard登录/" class="article-date">
+  <time datetime="2018-11-05T04:51:00.000Z" itemprop="datePublished">2018-11-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="K8S-集群资源"><a href="#K8S-集群资源" class="headerlink" title="K8S-集群资源"></a>K8S-集群资源</h2><h3 id="在线集群"><a href="#在线集群" class="headerlink" title="在线集群"></a>在线集群</h3><h5 id="集群信息"><a href="#集群信息" class="headerlink" title="集群信息"></a>集群信息</h5><ul>
+<li>master 地址：<blockquote>
+<p>10.85.137.70<br>10.85.137.71<br>10.85.137.72<br>10.85.137.73<br>10.85.137.74</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>apiserver 登录方式一</strong></p>
+<ul>
+<li>登录master节点，开启代理</li>
+<li>获取本机IP：<blockquote>
+<p>/sbin/ifconfig -a|grep -A 2  eth0|grep inet|grep -v 127.0.0.1|grep -v inet6|awk ‘{print $2}’|tr -d “addr:”</p>
+</blockquote>
+</li>
+<li>开启代理<blockquote>
+<p>kubectl   proxy  –port=8001 –address=’10.85.137.70’ –accept-hosts=’^.*’</p>
+</blockquote>
+</li>
+<li>获取登录token<blockquote>
+<p>kubectl describe serviceaccount tiller -n kube-system<br>kubectl describe secret   tiller-token-6w8tt -n  kube-system</p>
+</blockquote>
+</li>
+</ul>
+<p>实际上获取到的token便是如下字符串，可直接复制黏贴：</p>
+<blockquote>
+<p>eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJ0aWxsZXItdG9rZW4tNnc4dHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoidGlsbGVyIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiMDY0ZDg4MzUtMjVhYi0xMWU4LWFjZjAtMDAxNjNlMGE0NGE5Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOnRpbGxlciJ9.D7NYCCnexdM2m7GdZjocbkc151NeqdbWXcH9Qs0xvfQFhjTadhq4ObzxNrGJ9FZ1imzBHeA6oxapaFeO5GxIWdbyTrdb1z_W8xnUXl3ZypbnBK8LLK4NWl4SZ9kzDie0PKuMIe53qqWGS-ZJZCzWMeugTSm7ykdYEI2kBae7ooFDfxDqEmt-TNO_7ZhtV0t3F3kYLVyFE3g5UpHX6GbflTtmxe5qJpY02m5f3fJCYqGgomIQCmGd9UUtYZPBELGENxCYapC6D6yhSv49Uys2Tg85sMcxuv9p4PmIqI0YyYpYQIbZsD5XLc2kbl0DJIxNqUnwDrWZxQkOJAynbPVa3g</p>
+</blockquote>
+<p>方式一可以访问apiserver restfull api，不过访问dashbroad貌似有点问题，如果用访问dashbroad的需求请使用方式二</p>
+<p><strong> apiserver登录方式二 </strong><br>在个人电脑上配置kubectl，配置证书，本地起代理，浏览器访问本地代理</p>
+<ol>
+<li>配置准备</li>
+</ol>
+<ul>
+<li>python -m SimpleHTTPServer 9999</li>
+<li>从master拉取配置：~/.kube/config </li>
+<li>从master拉取证书：/etc/kubernetes/pki</li>
+<li>从master中拷贝客户端kubectl</li>
+</ul>
+<ol>
+<li>导入证书：</li>
+</ol>
+<ul>
+<li>mac: lanchpad-&gt;实用工具-&gt;钥匙串访问-&gt;导入项目：</li>
+<li>将pki中的apiserver.crt与ca.crt  证书导入</li>
+<li>重启浏览器</li>
+</ul>
+<ol>
+<li>启动本地代理：</li>
+</ol>
+<ul>
+<li>./kubectl   proxy  –port=8001 –address=’127.0.0.1’ –accept-hosts=’^.*’   –kubeconfig=admin.conf </li>
+</ul>
+<ol>
+<li><p>获取token，访问dashbroad 同方法1</p>
+</li>
+<li><p>访问127.0.0.1:8001</p>
+</li>
+</ol>
+<h3 id="离线集群"><a href="#离线集群" class="headerlink" title="离线集群"></a>离线集群</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://theflyfish.github.io/2018/11/05/K8S-集群资源dashboard登录/" data-id="cjxr0e07t00049cnq6kgntnn5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -203,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2016/02/28/notes-1/" data-id="cjmgge8bu0001ysnq8s1abouf" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2016/02/28/notes-1/" data-id="cjxr0e07l00029cnqfj4oxkje" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +431,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://theflyfish.github.io/2016/01/15/snapshot/" data-id="cjmgge8bw0002ysnqjx9nv10b" class="article-share-link">Share</a>
+      <a data-url="http://theflyfish.github.io/2016/01/15/snapshot/" data-id="cjxr0e07r00039cnq5266vuv4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -336,7 +456,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -348,7 +468,15 @@
       <ul>
         
           <li>
-            <a href="/2018/09/24/Tensorflow-Class/">Tensorflow-Class</a>
+            <a href="/2019/02/18/ctcdflow-readme/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/24/weiPSClient/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/05/K8S-集群资源dashboard登录/">(no title)</a>
           </li>
         
           <li>
@@ -371,7 +499,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Shine Yu<br>
+      &copy; 2019 Shine Yu<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
